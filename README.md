@@ -43,3 +43,37 @@ angular
 ```
 * `screenUrl` - The path where the static image screens can be found - Default - `assets/screens/`
 * `screenFileFormat` - The file format that the images are stored as - Default - `.png`
+
+## Screen Configuration Example
+
+```javascript
+[{
+    "state": "home",
+    "url": "/",
+    "breakpoints": {
+      "desktop": {
+        "hotspots": [{
+          "x": 24,
+          "y": 774,
+          "width": 488,
+          "height": 92,
+          "state": "products"
+        }]
+      }
+    }
+  }, {
+    "state": "products",
+    "url": "/products",
+    "breakpoints": {
+      "desktop": {
+        "hotspots": [{
+          "x": 28,
+          "y": 756,
+          "width": 488,
+          "height": 92,
+          "state": "home"
+        }]
+      }
+    }
+  }]
+```
