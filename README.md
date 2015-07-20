@@ -29,8 +29,11 @@ angular
 
 ## Configuration
 
-* `screenConfigFile` - The location (local or remote) of the screen configuration file - Default: `/app/config/screens.json`
-* `breakpoints` - An array of breakpoint objects defining at what width resolution the images should change - Default - ```javascript
+* `screenConfigFile` - The location (local or remote) of the screen configuration file  
+    * Default `/app/config/screens.json`
+* `breakpoints` - An array of breakpoint objects defining at what width resolution the images should change
+    * Default
+```javascript
   [{
     name: 'desktop',
   }, {
@@ -41,5 +44,7 @@ angular
     maxResolution: 320
   }]
 ```
-* `screenUrl` - The path where the static image screens can be found - Default - `assets/screens/`
-* `screenFileFormat` - The file format that the images are stored as - Default - `.png`
+* `screenUrl` - The path where the static image screens can be found
+    * Default `assets/screens/`
+* `screenFileFormat` - The file format that the images are stored as
+    * Default `.png`
