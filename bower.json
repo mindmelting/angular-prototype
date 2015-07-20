@@ -1,0 +1,42 @@
+{
+  "name": "angular-prototype",
+  "version": "0.0.1",
+  "authors": [
+    "Lawrence Hunt <lawrence.hunt@gmail.com>"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "angular",
+    "AngularJS",
+    "prototype",
+    "hotspots"
+  ],
+  "main": [
+    "./dist/angular-prototype.js",
+    "./src/hotspots/hotspot.scss"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mindmelting/angular-prototype"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ui-router-extras": "~0.0.14",
+    "lodash": "~3.10.0"
+  },
+  "overrides": {
+    "ui-router-extras": {
+      "main": [ "./release/modular/ct-ui-router-extras.core.js",
+                "./release/modular/ct-ui-router-extras.future.js"]
+    }
+  }
+}

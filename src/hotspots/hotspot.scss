@@ -1,0 +1,15 @@
+.hotspot-wrapper {
+  margin: 0 auto;
+  text-align: center;
+}
+.hotspot-container {
+  position: relative;
+  display: inline-block;
+}
+.hotspot {
+  position: absolute;
+  .debug & {
+    background-color: red;
+    opacity: 0.5;
+  }
+}
