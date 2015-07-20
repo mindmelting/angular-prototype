@@ -1,3 +1,6 @@
+$hotspot-debug-color: #FF0000 !default;
+$hotspot-debug-opacity: 0.5 !default;
+
 .hotspot-wrapper {
   margin: 0 auto;
   text-align: center;
@@ -9,7 +12,7 @@
 .hotspot {
   position: absolute;
   .debug & {
-    background-color: red;
-    opacity: 0.5;
+    background-color: $hotspot-debug-color;
+    opacity: $hotspot-debug-opacity;
   }
 }
