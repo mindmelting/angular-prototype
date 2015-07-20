@@ -16,3 +16,6 @@ $hotspot-debug-opacity: 0.5 !default;
     opacity: $hotspot-debug-opacity;
   }
 }
+.screen-preload {
+  display: none;
+}
