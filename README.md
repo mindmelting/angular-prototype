@@ -2,6 +2,8 @@
 
 Angular service to generate a set of prototype hotspot enabled screens derived from configuration.
 
+Screens are lazyloaded based on the hotspot links on the current page.
+
 ## Installation
 
 Install package from bower:
