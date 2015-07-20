@@ -1,6 +1,7 @@
 <div class="hotspot-wrapper">
   <div class="hotspot-container" ng-class="{debug: debug}">
-    <img ng-src="{{screenUrl}}">
+    <img data-screen ng-src="{{screenUrl}}">
     <a ui-sref="{{hotspot.state}}({debug: debug || null})" ng-repeat="hotspot in options.hotspots" class="hotspot" style="left: {{hotspot.x}}px; top: {{hotspot.y}}px; width: {{hotspot.width}}px; height: {{hotspot.height}}px"></a>
   </div>
+  <img class="screen-preload" ng-src="{{pre}}" ng-repeat="pre in preload">
 </div>

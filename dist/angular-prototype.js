@@ -71,20 +71,43 @@
     return {
       restrict: 'E',
       templateUrl: 'hotspots/hotspot.html',
-      link: function(scope) {
+      link: function(scope, element) {
 
         function setScreenState(currentBreakpoint) {
-          var fileName = $state.current.name + '_' + currentBreakpoint + protoScreen.screenFileFormat;
-
-          scope.screenUrl = protoScreen.screenUrl + $state.current.name + '/' + fileName;
           scope.options = $state.current.breakpoints[currentBreakpoint];
+          scope.breakpoint = currentBreakpoint;
+          scope.screenUrl = getFilePath($state.current.name);
+        }
+
+        function onImageLoaded() {
+          scope.preload.length = 0;
+          angular.forEach(scope.options.hotspots, preloadHotspotImage);
+        }
+
+        function preloadHotspotImage(hotspot) {
+          var state = $state.get(hotspot.state);
+
+          if (state) {
+            scope.preload.push(getFilePath(state.name));
+          }
+        }
+
+        function getFilePath(name) {
+          var fileName = name + '_' + scope.breakpoint + protoScreen.screenFileFormat;
+
+          return protoScreen.screenUrl + name + '/' + fileName;
         }
 
         scope.debug = !!$stateParams.debug;
+        scope.preload = [];
 
         scope.$watch(function() {
           return breakpointService.getBreakpoint();
         }, setScreenState);
+
+        element.find('[data-screen]').on('load', function() {
+          scope.$apply(onImageLoaded);
+        });
 
       }
     };
@@ -149,4 +172,4 @@
 
 })();
 
-angular.module("proto.screen").run(["$templateCache", function($templateCache) {$templateCache.put("hotspots/hotspot.html","<div class=\"hotspot-wrapper\"><div class=\"hotspot-container\" ng-class=\"{debug: debug}\"><img ng-src=\"{{screenUrl}}\"> <a ui-sref=\"{{hotspot.state}}({debug: debug || null})\" ng-repeat=\"hotspot in options.hotspots\" class=\"hotspot\" style=\"left: {{hotspot.x}}px; top: {{hotspot.y}}px; width: {{hotspot.width}}px; height: {{hotspot.height}}px\"></a></div></div>");}]);
+angular.module("proto.screen").run(["$templateCache", function($templateCache) {$templateCache.put("hotspots/hotspot.html","<div class=\"hotspot-wrapper\"><div class=\"hotspot-container\" ng-class=\"{debug: debug}\"><img data-screen=\"\" ng-src=\"{{screenUrl}}\"> <a ui-sref=\"{{hotspot.state}}({debug: debug || null})\" ng-repeat=\"hotspot in options.hotspots\" class=\"hotspot\" style=\"left: {{hotspot.x}}px; top: {{hotspot.y}}px; width: {{hotspot.width}}px; height: {{hotspot.height}}px\"></a></div><img class=\"screen-preload\" ng-src=\"{{pre}}\" ng-repeat=\"pre in preload\" style=\"display:none;\"></div>");}]);

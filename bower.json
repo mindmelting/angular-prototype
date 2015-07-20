@@ -1,6 +1,6 @@
 {
   "name": "angular-prototype",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "authors": [
     "Lawrence Hunt <lawrence.hunt@gmail.com>"
   ],
@@ -31,12 +31,15 @@
   ],
   "dependencies": {
     "ui-router-extras": "~0.0.14",
-    "lodash": "~3.10.0"
+    "lodash": "~3.10.0",
+    "jquery": "~2.1.4"
   },
   "overrides": {
     "ui-router-extras": {
-      "main": [ "./release/modular/ct-ui-router-extras.core.js",
-                "./release/modular/ct-ui-router-extras.future.js"]
+      "main": [
+        "./release/modular/ct-ui-router-extras.core.js",
+        "./release/modular/ct-ui-router-extras.future.js"
+      ]
     }
   }
 }
