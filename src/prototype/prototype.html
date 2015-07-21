@@ -1,5 +1,5 @@
-<div class="hotspot-wrapper">
-  <div class="hotspot-container" ng-class="{debug: debug}">
+<div class="prototype-wrapper">
+  <div class="prototype-container" ng-class="{debug: debug}">
     <img data-screen ng-src="{{screenUrl}}">
     <a ui-sref="{{hotspot.state}}({debug: debug || null})" ng-repeat="hotspot in options.hotspots" class="hotspot" style="left: {{hotspot.x}}px; top: {{hotspot.y}}px; width: {{hotspot.width}}px; height: {{hotspot.height}}px"></a>
   </div>

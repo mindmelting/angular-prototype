@@ -1,11 +1,11 @@
 (function() {
   'use strict';
 
-  angular.module('proto.screen')
-    .provider('protoScreen', prototypeScreenProvider);
+  angular.module('prototype')
+    .provider('$prototype', prototypeProvider);
 
     /** @ngInject */
-    function prototypeScreenProvider($stateProvider, $futureStateProvider) {
+    function prototypeProvider($stateProvider, $futureStateProvider) {
 
       var options = {
         screenConfigFile: '/app/config/screens.json',
@@ -34,7 +34,7 @@
           .state(stateConfig.state, {
             url: stateConfig.url + '?debug',
             breakpoints: stateConfig.breakpoints,
-            template: '<hotspot></hotspot>'
+            template: '<prototype></prototype>'
           });
       }
 

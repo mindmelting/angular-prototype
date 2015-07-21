@@ -14,7 +14,7 @@ Add as a module dependency:
 
 ```javascript
 angular
-    .module('myModule', ['proto.screen']);
+    .module('myModule', ['prototype']);
 ```  
 
 Initialise module with configuration:  
@@ -22,8 +22,8 @@ Initialise module with configuration:
 ```javascript
 angular
     .module('myModule')
-    .config(['protoScreenProvider', function(protoScreenProvider){
-      protoScreenProvider.init({
+    .config(['$prototypeProvider', function($prototypeProvider){
+      $prototypeProvider.init({
         screenConfigFile: '/config/screens.json'
       });
     }]);

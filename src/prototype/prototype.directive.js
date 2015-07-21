@@ -1,14 +1,14 @@
 (function() {
   'use strict';
 
-  angular.module('proto.screen')
-    .directive('hotspot', hotspot);
+  angular.module('prototype')
+    .directive('prototype', prototype);
 
   /** @ngInject */
-  function hotspot($state, $stateParams, breakpointService, protoScreen) {
+  function prototype($state, $stateParams, breakpointService, $prototype) {
     return {
       restrict: 'E',
-      templateUrl: 'hotspots/hotspot.html',
+      templateUrl: 'prototype/prototype.html',
       link: function(scope, element) {
 
         function setScreenState(currentBreakpoint) {
@@ -31,9 +31,9 @@
         }
 
         function getFilePath(name) {
-          var fileName = name + '_' + scope.breakpoint + protoScreen.screenFileFormat;
+          var fileName = name + '_' + scope.breakpoint + $prototype.screenFileFormat;
 
-          return protoScreen.screenUrl + name + '/' + fileName;
+          return $prototype.screenUrl + name + '/' + fileName;
         }
 
         scope.debug = !!$stateParams.debug;

@@ -1,6 +1,6 @@
 {
   "name": "angular-prototype",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "authors": [
     "Lawrence Hunt <lawrence.hunt@gmail.com>"
   ],
@@ -15,7 +15,7 @@
   ],
   "main": [
     "./dist/angular-prototype.js",
-    "./src/hotspots/hotspot.scss"
+    "./src/prototype/prototype.scss"
   ],
   "license": "MIT",
   "repository": {

@@ -16,7 +16,7 @@ gulp.task('partials', function () {
       quotes: true
     }))
     .pipe($.angularTemplatecache('templateCacheHtml.js', {
-      module: 'proto.screen'
+      module: 'prototype'
     }))
     .pipe(gulp.dest('.tmp/partials/'));
 });

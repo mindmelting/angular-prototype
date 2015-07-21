@@ -1,11 +1,11 @@
 (function() {
   'use strict';
 
-  angular.module('proto.screen')
+  angular.module('prototype')
     .factory('breakpointService', breakpointService);
 
   /** @ngInject */
-  function breakpointService($rootScope, protoScreen, $window) {
+  function breakpointService($rootScope, $prototype, $window) {
     var currentBreakpoint = getCurrentBreakpoint();
 
     function getBreakpoint() {
@@ -15,7 +15,7 @@
     function getCurrentBreakpoint() {
       var breakpointName;
 
-      angular.forEach(protoScreen.breakpoints, function(breakpoint) {
+      angular.forEach($prototype.breakpoints, function(breakpoint) {
         if (!breakpoint.maxResolution || $window.innerWidth <= breakpoint.maxResolution) {
           breakpointName = breakpoint.name;
         }

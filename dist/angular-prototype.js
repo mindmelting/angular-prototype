@@ -1,18 +1,75 @@
 (function() {
   'use strict';
 
-  angular.module('proto.screen', ['ui.router', 'ct.ui.router.extras.future']);
+  angular.module('prototype', ['ui.router', 'ct.ui.router.extras.future']);
 
 })();
 
 (function() {
   'use strict';
 
-  angular.module('proto.screen')
-    .provider('protoScreen', prototypeScreenProvider);
+  angular.module('prototype')
+    .directive('prototype', prototype);
+
+  /** @ngInject */
+  function prototype($state, $stateParams, breakpointService, $prototype) {
+    return {
+      restrict: 'E',
+      templateUrl: 'prototype/prototype.html',
+      link: function(scope, element) {
+
+        function setScreenState(currentBreakpoint) {
+          scope.options = $state.current.breakpoints[currentBreakpoint];
+          scope.breakpoint = currentBreakpoint;
+          scope.screenUrl = getFilePath($state.current.name);
+        }
+
+        function onImageLoaded() {
+          scope.preload.length = 0;
+          angular.forEach(scope.options.hotspots, preloadHotspotImage);
+        }
+
+        function preloadHotspotImage(hotspot) {
+          var state = $state.get(hotspot.state);
+
+          if (state) {
+            scope.preload.push(getFilePath(state.name));
+          }
+        }
+
+        function getFilePath(name) {
+          var fileName = name + '_' + scope.breakpoint + $prototype.screenFileFormat;
+
+          return $prototype.screenUrl + name + '/' + fileName;
+        }
+
+        scope.debug = !!$stateParams.debug;
+        scope.preload = [];
+
+        scope.$watch(function() {
+          return breakpointService.getBreakpoint();
+        }, setScreenState);
+
+        element.find('[data-screen]').on('load', function() {
+          scope.$apply(onImageLoaded);
+        });
+
+      }
+    };
+
+  }
+  prototype.$inject = ["$state", "$stateParams", "breakpointService", "$prototype"];
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('prototype')
+    .provider('$prototype', prototypeProvider);
 
     /** @ngInject */
-    function prototypeScreenProvider($stateProvider, $futureStateProvider) {
+    function prototypeProvider($stateProvider, $futureStateProvider) {
 
       var options = {
         screenConfigFile: '/app/config/screens.json',
@@ -42,7 +99,7 @@
           .state(stateConfig.state, {
             url: stateConfig.url + '?debug',
             breakpoints: stateConfig.breakpoints,
-            template: '<hotspot></hotspot>'
+            template: '<prototype></prototype>'
           });
       }
 
@@ -57,74 +114,17 @@
 
       this.init = init;
     }
-    prototypeScreenProvider.$inject = ["$stateProvider", "$futureStateProvider"];
+    prototypeProvider.$inject = ["$stateProvider", "$futureStateProvider"];
 })();
 
 (function() {
   'use strict';
 
-  angular.module('proto.screen')
-    .directive('hotspot', hotspot);
-
-  /** @ngInject */
-  function hotspot($state, $stateParams, breakpointService, protoScreen) {
-    return {
-      restrict: 'E',
-      templateUrl: 'hotspots/hotspot.html',
-      link: function(scope, element) {
-
-        function setScreenState(currentBreakpoint) {
-          scope.options = $state.current.breakpoints[currentBreakpoint];
-          scope.breakpoint = currentBreakpoint;
-          scope.screenUrl = getFilePath($state.current.name);
-        }
-
-        function onImageLoaded() {
-          scope.preload.length = 0;
-          angular.forEach(scope.options.hotspots, preloadHotspotImage);
-        }
-
-        function preloadHotspotImage(hotspot) {
-          var state = $state.get(hotspot.state);
-
-          if (state) {
-            scope.preload.push(getFilePath(state.name));
-          }
-        }
-
-        function getFilePath(name) {
-          var fileName = name + '_' + scope.breakpoint + protoScreen.screenFileFormat;
-
-          return protoScreen.screenUrl + name + '/' + fileName;
-        }
-
-        scope.debug = !!$stateParams.debug;
-        scope.preload = [];
-
-        scope.$watch(function() {
-          return breakpointService.getBreakpoint();
-        }, setScreenState);
-
-        element.find('[data-screen]').on('load', function() {
-          scope.$apply(onImageLoaded);
-        });
-
-      }
-    };
-
-  }
-  hotspot.$inject = ["$state", "$stateParams", "breakpointService", "protoScreen"];
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('proto.screen')
+  angular.module('prototype')
     .factory('breakpointService', breakpointService);
 
   /** @ngInject */
-  function breakpointService($rootScope, protoScreen, $window) {
+  function breakpointService($rootScope, $prototype, $window) {
     var currentBreakpoint = getCurrentBreakpoint();
 
     function getBreakpoint() {
@@ -134,7 +134,7 @@
     function getCurrentBreakpoint() {
       var breakpointName;
 
-      angular.forEach(protoScreen.breakpoints, function(breakpoint) {
+      angular.forEach($prototype.breakpoints, function(breakpoint) {
         if (!breakpoint.maxResolution || $window.innerWidth <= breakpoint.maxResolution) {
           breakpointName = breakpoint.name;
         }
@@ -168,8 +168,8 @@
     };
 
   }
-  breakpointService.$inject = ["$rootScope", "protoScreen", "$window"];
+  breakpointService.$inject = ["$rootScope", "$prototype", "$window"];
 
 })();
 
-angular.module("proto.screen").run(["$templateCache", function($templateCache) {$templateCache.put("hotspots/hotspot.html","<div class=\"hotspot-wrapper\"><div class=\"hotspot-container\" ng-class=\"{debug: debug}\"><img data-screen=\"\" ng-src=\"{{screenUrl}}\"> <a ui-sref=\"{{hotspot.state}}({debug: debug || null})\" ng-repeat=\"hotspot in options.hotspots\" class=\"hotspot\" style=\"left: {{hotspot.x}}px; top: {{hotspot.y}}px; width: {{hotspot.width}}px; height: {{hotspot.height}}px\"></a></div><img class=\"screen-preload\" ng-src=\"{{pre}}\" ng-repeat=\"pre in preload\" style=\"display:none;\"></div>");}]);
+angular.module("prototype").run(["$templateCache", function($templateCache) {$templateCache.put("prototype/prototype.html","<div class=\"prototype-wrapper\"><div class=\"prototype-container\" ng-class=\"{debug: debug}\"><img data-screen=\"\" ng-src=\"{{screenUrl}}\"> <a ui-sref=\"{{hotspot.state}}({debug: debug || null})\" ng-repeat=\"hotspot in options.hotspots\" class=\"hotspot\" style=\"left: {{hotspot.x}}px; top: {{hotspot.y}}px; width: {{hotspot.width}}px; height: {{hotspot.height}}px\"></a></div><img class=\"screen-preload\" ng-src=\"{{pre}}\" ng-repeat=\"pre in preload\"></div>");}]);
