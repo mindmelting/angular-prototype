@@ -18,11 +18,15 @@ module.exports = function (config) {
     },
 
     coverageReporter: {
-      type : 'html',
-      dir : 'coverage/'
+      type : 'lcovonly',
+      dir : 'reports/coverage/'
     },
 
-    reports: ['progress', 'coverage'],
+    junitReporter: {
+      outputDir: process.env.$CIRCLE_TEST_REPORTS || 'reports'
+    },
+
+    reporters: ['progress', 'coverage', 'junit'],
 
     files: [
       'bower_components/jquery/dist/jquery.js',
@@ -55,6 +59,7 @@ module.exports = function (config) {
       'karma-angular-filesort',
       'karma-jasmine',
       'karma-coverage',
+      'karma-junit-reporter',
       'karma-ng-html2js-preprocessor'
     ],
 
