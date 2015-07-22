@@ -13,7 +13,7 @@
       link: function(scope, element) {
 
         function setScreenState(currentBreakpoint) {
-          scope.options = $state.current.breakpoints[currentBreakpoint];
+          scope.options = $state.current.breakpoints[currentBreakpoint.name];
           scope.breakpoint = currentBreakpoint;
           scope.screenUrl = getFilePath($state.current.name);
         }
@@ -32,7 +32,7 @@
         }
 
         function getFilePath(name) {
-          var fileName = name + '_' + scope.breakpoint + $prototype.screenFileFormat;
+          var fileName = name + '_' + scope.breakpoint.name + $prototype.screenFileFormat;
 
           return $prototype.screenUrl + name + '/' + fileName;
         }

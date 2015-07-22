@@ -13,22 +13,22 @@
     }
 
     function getCurrentBreakpoint() {
-      var breakpointName;
+      var currentBreakpoint;
 
       angular.forEach($prototype.breakpoints, function(breakpoint) {
-        if (!breakpoint.maxResolution || $window.innerWidth <= breakpoint.maxResolution) {
-          breakpointName = breakpoint.name;
+        if (!breakpoint.resolution || $window.innerWidth <= breakpoint.resolution) {
+          currentBreakpoint = breakpoint;
         }
       });
 
-      return breakpointName;
+      return currentBreakpoint || $prototype.breakpoints[0];
     }
 
     function isBreakPointUpdated() {
-      var breakpointName = getCurrentBreakpoint();
+      var breakpoint = getCurrentBreakpoint();
 
-      if (currentBreakpoint !== breakpointName) {
-        currentBreakpoint = breakpointName;
+      if (currentBreakpoint !== breakpoint) {
+        currentBreakpoint = breakpoint;
         return true;
       }
 

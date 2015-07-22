@@ -20,7 +20,7 @@
       link: function(scope, element) {
 
         function setScreenState(currentBreakpoint) {
-          scope.options = $state.current.breakpoints[currentBreakpoint];
+          scope.options = $state.current.breakpoints[currentBreakpoint.name];
           scope.breakpoint = currentBreakpoint;
           scope.screenUrl = getFilePath($state.current.name);
         }
@@ -39,7 +39,7 @@
         }
 
         function getFilePath(name) {
-          var fileName = name + '_' + scope.breakpoint + $prototype.screenFileFormat;
+          var fileName = name + '_' + scope.breakpoint.name + $prototype.screenFileFormat;
 
           return $prototype.screenUrl + name + '/' + fileName;
         }
@@ -76,12 +76,13 @@
         screenConfigFile: '/app/config/screens.json',
         breakpoints: [{
           name: 'desktop',
+          resolution: 1280
         }, {
           name: 'tablet',
-          maxResolution: 960
+          resolution: 960
         }, {
           name: 'mobile',
-          maxResolution: 320
+          resolution: 540
         }],
         screenUrl: 'assets/screens/',
         screenFileFormat: '.png'
@@ -133,22 +134,22 @@
     }
 
     function getCurrentBreakpoint() {
-      var breakpointName;
+      var currentBreakpoint;
 
       angular.forEach($prototype.breakpoints, function(breakpoint) {
-        if (!breakpoint.maxResolution || $window.innerWidth <= breakpoint.maxResolution) {
-          breakpointName = breakpoint.name;
+        if (!breakpoint.resolution || $window.innerWidth <= breakpoint.resolution) {
+          currentBreakpoint = breakpoint;
         }
       });
 
-      return breakpointName;
+      return currentBreakpoint || $prototype.breakpoints[0];
     }
 
     function isBreakPointUpdated() {
-      var breakpointName = getCurrentBreakpoint();
+      var breakpoint = getCurrentBreakpoint();
 
-      if (currentBreakpoint !== breakpointName) {
-        currentBreakpoint = breakpointName;
+      if (currentBreakpoint !== breakpoint) {
+        currentBreakpoint = breakpoint;
         return true;
       }
 
@@ -173,4 +174,4 @@
 
 })();
 
-angular.module("prototype").run(["$templateCache", function($templateCache) {$templateCache.put("prototype/prototype.html","<div class=\"prototype-wrapper\"><div class=\"prototype-container\" ng-class=\"{debug: debug}\"><img data-screen=\"\" ng-src=\"{{screenUrl}}\"> <a ui-sref=\"{{hotspot.state}}({debug: debug || null})\" ng-repeat=\"hotspot in options.hotspots\" class=\"hotspot\" style=\"left: {{hotspot.x}}px; top: {{hotspot.y}}px; width: {{hotspot.width}}px; height: {{hotspot.height}}px\"></a></div><img class=\"screen-preload\" ng-src=\"{{pre}}\" ng-repeat=\"pre in preload\"></div>");}]);
+angular.module("prototype").run(["$templateCache", function($templateCache) {$templateCache.put("prototype/prototype.html","<div class=\"prototype-wrapper\"><div class=\"prototype-container\" ng-class=\"{debug: debug}\"><img ng-attr-width=\"{{breakpoint.resolution}}\" data-screen=\"\" ng-src=\"{{screenUrl}}\" width=\"540\"> <a ui-sref=\"{{hotspot.state}}({debug: debug || null})\" ng-repeat=\"hotspot in options.hotspots\" class=\"hotspot\" style=\"left: {{hotspot.x}}px; top: {{hotspot.y}}px; width: {{hotspot.width}}px; height: {{hotspot.height}}px\"></a></div><img class=\"screen-preload\" ng-src=\"{{pre}}\" ng-repeat=\"pre in preload\"></div>");}]);

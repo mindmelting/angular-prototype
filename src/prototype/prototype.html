@@ -1,6 +1,6 @@
 <div class="prototype-wrapper">
   <div class="prototype-container" ng-class="{debug: debug}">
-    <img data-screen ng-src="{{screenUrl}}">
+    <img ng-attr-width="{{breakpoint.resolution}}" data-screen ng-src="{{screenUrl}}" width="540">
     <a ui-sref="{{hotspot.state}}({debug: debug || null})" ng-repeat="hotspot in options.hotspots" class="hotspot" style="left: {{hotspot.x}}px; top: {{hotspot.y}}px; width: {{hotspot.width}}px; height: {{hotspot.height}}px"></a>
   </div>
   <img class="screen-preload" ng-src="{{pre}}" ng-repeat="pre in preload">

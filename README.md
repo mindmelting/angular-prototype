@@ -35,17 +35,18 @@ angular
 
 * `screenConfigFile` - The location (local or remote) of the screen configuration file  
     * Default `/app/config/screens.json`
-* `breakpoints` - An array of breakpoint objects defining at what width resolution the images should change
+* `breakpoints` - An array of breakpoint objects defining at what width resolution the images should change. It will select the first item in the array if the screen is larger than all defined resolutions. The image widths will be set to this resolution too in order to cater for retina images.
     * Default
 ```javascript
   [{
     name: 'desktop',
+    resolution: 1024
   }, {
     name: 'tablet',
-    maxResolution: 960
+    resolution: 960
   }, {
     name: 'mobile',
-    maxResolution: 320
+    resolution: 320
   }]
 ```
 * `screenUrl` - The path where the static image screens can be found

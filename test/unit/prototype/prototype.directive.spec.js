@@ -75,7 +75,10 @@ describe('Prototype Directive: ', function() {
   }));
 
   describe('Initial scope: ', function() {
-    var breakpoint = 'desktop',
+    var breakpoint = {
+        name: 'desktop',
+        resolution: 1024
+      },
       isolateScope;
 
     beforeEach(function() {
@@ -89,7 +92,7 @@ describe('Prototype Directive: ', function() {
     });
 
     it('Should set breakpoint options', function() {
-      expect(isolateScope.options).toBe(CURRENT_STATE.breakpoints[breakpoint]);
+      expect(isolateScope.options).toBe(CURRENT_STATE.breakpoints[breakpoint.name]);
     });
 
     it('Should set current breakpoint', function() {
@@ -129,7 +132,10 @@ describe('Prototype Directive: ', function() {
     });
 
     describe('Breakpoint change: ', function() {
-      var newBreakpoint = 'mobile';
+      var newBreakpoint = {
+        name: 'mobile',
+        resolution: 540
+      };
 
       beforeEach(function() {
         breakpointService.getBreakpoint.and.returnValue(newBreakpoint);
@@ -137,7 +143,7 @@ describe('Prototype Directive: ', function() {
       });
 
       it('Should update breakpoint options', function() {
-        expect(isolateScope.options).toBe(CURRENT_STATE.breakpoints[newBreakpoint]);
+        expect(isolateScope.options).toBe(CURRENT_STATE.breakpoints[newBreakpoint.name]);
       });
 
       it('Should update current breakpoint', function() {

@@ -11,12 +11,13 @@
         screenConfigFile: '/app/config/screens.json',
         breakpoints: [{
           name: 'desktop',
+          resolution: 1280
         }, {
           name: 'tablet',
-          maxResolution: 960
+          resolution: 960
         }, {
           name: 'mobile',
-          maxResolution: 320
+          resolution: 540
         }],
         screenUrl: 'assets/screens/',
         screenFileFormat: '.png'
