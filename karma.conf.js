@@ -23,7 +23,7 @@ module.exports = function (config) {
     },
 
     junitReporter: {
-      outputDir: process.env.$CIRCLE_TEST_REPORTS || 'reports'
+      outputDir: 'reports'
     },
 
     reporters: ['progress', 'coverage', 'junit'],
