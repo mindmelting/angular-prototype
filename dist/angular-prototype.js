@@ -15,6 +15,7 @@
   function prototype($state, $stateParams, breakpointService, $prototype) {
     return {
       restrict: 'E',
+      scope: {},
       templateUrl: 'prototype/prototype.html',
       link: function(scope, element) {
 
