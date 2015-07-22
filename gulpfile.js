@@ -32,7 +32,7 @@ gulp.task('partials', function () {
     .pipe(gulp.dest('.tmp/partials/'));
 });
 
-gulp.task('build', ['partials'], function() {
+gulp.task('build', ['test', 'partials'], function() {
   return gulp.src(['src/**/*.js', '.tmp/partials/*'])
     .pipe($.ngAnnotate())
     .pipe($.concat('angular-prototype.js'))

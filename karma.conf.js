@@ -17,7 +17,12 @@ module.exports = function (config) {
       moduleName: 'htmlTpl'
     },
 
-    reports: ['progress'],
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/'
+    },
+
+    reports: ['progress', 'coverage'],
 
     files: [
       'bower_components/jquery/dist/jquery.js',
@@ -42,17 +47,19 @@ module.exports = function (config) {
 
     captureTimeout: 60000,
 
-    singleRun: false,
+    singleRun: true,
 
     plugins: [
       'karma-phantomjs-launcher',
       'karma-chrome-launcher',
       'karma-angular-filesort',
       'karma-jasmine',
+      'karma-coverage',
       'karma-ng-html2js-preprocessor'
     ],
 
     preprocessors: {
+      'src/**/*.js': ['coverage'],
       'src/**/*.html': ['ng-html2js']
     }
   });
