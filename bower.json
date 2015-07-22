@@ -41,5 +41,9 @@
         "./release/modular/ct-ui-router-extras.future.js"
       ]
     }
+  },
+  "devDependencies": {
+    "angular": "~1.4.3",
+    "angular-mocks": "~1.4.3"
   }
 }

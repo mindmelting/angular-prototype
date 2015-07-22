@@ -2,8 +2,19 @@
 'use strict';
 
 var gulp = require('gulp');
+var karma = require('karma');
+var path = require('path');
 var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
+});
+
+gulp.task('test', function(done) {
+  karma.server.start({
+    configFile: path.join(__dirname, '/karma.conf.js'),
+    singleRun: true,
+    autoWatch: false
+  }, done);
+
 });
 
 gulp.task('partials', function () {
