@@ -8,12 +8,7 @@ var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
 });
 
-gulp.task('test', ['unit'], function() {
-  return gulp.src('reports/coverage/**/lcov.info')
-    .pipe($.coveralls());
-});
-
-gulp.task('unit', function(done) {
+gulp.task('test', function(done) {
   karma.server.start({
     configFile: path.join(__dirname, '/karma.conf.js'),
     singleRun: true,
