@@ -1,3 +1,6 @@
+machine:
+  environment:
+    CODECLIMATE_REPO_TOKEN: KigvulWHtcuCcIEppxHeMyWZDse0rxFGC
 test:
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
