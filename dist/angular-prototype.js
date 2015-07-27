@@ -22,6 +22,7 @@
         function setScreenState(currentBreakpoint) {
           scope.options = $state.current.breakpoints[currentBreakpoint.name];
           scope.breakpoint = currentBreakpoint;
+          scope.ratio = currentBreakpoint.resolution / scope.options.imageWidth;
           scope.screenUrl = getFilePath($state.current.name);
         }
 
@@ -174,4 +175,4 @@
 
 })();
 
-angular.module("prototype").run(["$templateCache", function($templateCache) {$templateCache.put("prototype/prototype.html","<div class=\"prototype-wrapper\"><div class=\"prototype-container\" ng-class=\"{debug: debug}\"><img ng-attr-width=\"{{breakpoint.resolution}}\" data-screen=\"\" ng-src=\"{{screenUrl}}\" width=\"540\"> <a ui-sref=\"{{hotspot.state}}({debug: debug || null})\" ng-repeat=\"hotspot in options.hotspots\" class=\"hotspot\" style=\"left: {{hotspot.x}}px; top: {{hotspot.y}}px; width: {{hotspot.width}}px; height: {{hotspot.height}}px\"></a></div><img class=\"screen-preload\" ng-src=\"{{pre}}\" ng-repeat=\"pre in preload\"></div>");}]);
+angular.module("prototype").run(["$templateCache", function($templateCache) {$templateCache.put("prototype/prototype.html","<div class=\"prototype-wrapper\"><div class=\"prototype-container\" ng-class=\"{debug: debug}\"><img ng-attr-width=\"{{breakpoint.resolution}}\" data-screen=\"\" ng-src=\"{{screenUrl}}\"> <a ui-sref=\"{{hotspot.state}}({debug: debug || null})\" ng-repeat=\"hotspot in options.hotspots\" class=\"hotspot\" style=\"left: {{hotspot.x * ratio}}px; top: {{hotspot.y * ratio}}px; width: {{hotspot.width}}px; height: {{hotspot.height}}px\"></a></div><img class=\"screen-preload\" ng-src=\"{{pre}}\" ng-repeat=\"pre in preload\"></div>");}]);
