@@ -16,7 +16,7 @@
           scope.options = $state.current.breakpoints[currentBreakpoint.name];
           scope.breakpoint = currentBreakpoint;
           scope.ratio = currentBreakpoint.resolution / scope.options.imageWidth;
-          scope.screenUrl = getFilePath($state.current.name);
+          scope.screenUrl = getFilePath($state.current);
         }
 
         function onImageLoaded() {
@@ -28,14 +28,14 @@
           var state = $state.get(hotspot.state);
 
           if (state) {
-            scope.preload.push(getFilePath(state.name));
+            scope.preload.push(getFilePath(state));
           }
         }
 
-        function getFilePath(name) {
-          var fileName = name + '_' + scope.breakpoint.name + $prototype.screenFileFormat;
+        function getFilePath(state) {
+          var fileName = state.name + '_' + scope.breakpoint.name + $prototype.screenFileFormat;
 
-          return $prototype.screenUrl + name + '/' + fileName;
+          return $prototype.screenUrl + state.url + '/' + fileName;
         }
 
         scope.debug = !!$stateParams.debug;

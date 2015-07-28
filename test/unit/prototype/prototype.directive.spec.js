@@ -2,9 +2,10 @@ describe('Prototype Directive: ', function() {
   'use strict';
 
   var FILE_FORMAT = '.png',
-    SCREEN_URL = '/assets/',
+    SCREEN_URL = '/assets',
     CURRENT_STATE = {
       name: 'home',
+      url: '/home',
       "breakpoints": {
         "desktop": {
           "hotspots": [{
@@ -112,7 +113,8 @@ describe('Prototype Directive: ', function() {
       describe('Once image has been loaded', function() {
         beforeEach(function() {
           $state.get.and.returnValue({
-            name: 'products'
+            name: 'products',
+            url: '/products'
           });
           $element.find('[data-screen]').trigger('load');
         });

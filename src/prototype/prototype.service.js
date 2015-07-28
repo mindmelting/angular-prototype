@@ -19,7 +19,7 @@
           name: 'mobile',
           resolution: 540
         }],
-        screenUrl: 'assets/screens/',
+        screenUrl: 'assets/screens',
         screenFileFormat: '.png'
       };
 
