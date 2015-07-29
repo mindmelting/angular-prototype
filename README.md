@@ -9,6 +9,8 @@ Angular service to generate a set of prototype hotspot enabled screens derived f
 
 Screens are lazyloaded based on the hotspot links on the current page.
 
+Configuration can be automatically generated from PSD files using [prototype-psd-parser](https://github.com/mindmelting/prototype-psd-parser)
+
 ## Installation
 
 Install package from bower:
@@ -38,7 +40,7 @@ angular
 
 * `screenConfigFile` - The location (local or remote) of the screen configuration file  
     * Default `/app/config/screens.json`
-* `breakpoints` - An array of breakpoint objects defining at what width resolution the images should change. It will select the first item in the array if the screen is larger than all defined resolutions. The image widths will be set to this resolution too in order to cater for retina images.
+* `breakpoints` - An array of breakpoint objects defining at what width resolution the images should change. It will select the first item in the array if the screen is larger than all defined resolutions. The image widths will be set to this resolution too in order to support retina images.
     * Default
 ```javascript
   [{
@@ -71,7 +73,9 @@ angular
           "width": 488,
           "height": 92,
           "state": "products"
-        }]
+        }],
+        "imageWidth": 1024,
+        "imageHeight": 2000
       }
     }
   }, {
@@ -85,7 +89,9 @@ angular
           "width": 488,
           "height": 92,
           "state": "home"
-        }]
+        }],
+        "imageWidth": 1024,
+        "imageHeight": 2000
       }
     }
   }]
