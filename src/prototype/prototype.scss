@@ -8,6 +8,9 @@ $hotspot-debug-opacity: 0.5 !default;
 .prototype-container {
   position: relative;
   display: inline-block;
+  img {
+    max-width: none;
+  }
 }
 .hotspot {
   position: absolute;
