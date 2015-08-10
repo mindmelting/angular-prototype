@@ -35,7 +35,7 @@
         function getFilePath(state) {
           var fileName = state.name + '_' + scope.breakpoint.name + $prototype.screenFileFormat;
 
-          return $prototype.screenUrl + state.url + '/' + fileName;
+          return $prototype.screenUrl + $state.href(state).replace('#', '') + '/' + fileName;
         }
 
         scope.debug = !!$stateParams.debug;

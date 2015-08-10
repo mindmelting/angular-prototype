@@ -70,9 +70,11 @@ describe('Prototype Directive: ', function() {
   beforeEach(inject(function($rootScope, $compile, _$state_, _breakpointService_) {
     breakpointService = _breakpointService_;
     $state = _$state_;
+    $state.href.and.returnValue('#/home');
 
     $scope = $rootScope.$new();
     $element = $compile('<prototype></prototype>')($scope);
+
   }));
 
   describe('Initial scope: ', function() {
@@ -116,6 +118,7 @@ describe('Prototype Directive: ', function() {
             name: 'products',
             url: '/products'
           });
+          $state.href.and.returnValue('#/products');
           $element.find('[data-screen]').trigger('load');
         });
 
