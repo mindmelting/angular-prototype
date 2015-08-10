@@ -1,5 +1,15 @@
 $hotspot-debug-color: #FF0000 !default;
 $hotspot-debug-opacity: 0.5 !default;
+$hotspot-hint-color: #FF0000 !default;
+$hotspot-hint-opacity: 0.8 !default;
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+     -moz-transition: $args;
+      -ms-transition: $args;
+       -o-transition: $args;
+          transition: $args;
+}
 
 .prototype-wrapper {
   margin: 0 auto;
@@ -14,9 +24,16 @@ $hotspot-debug-opacity: 0.5 !default;
 }
 .hotspot {
   position: absolute;
+  opacity: 1;
+
+  @include transition(all 0.2s ease);
   .debug & {
-    background-color: $hotspot-debug-color;
     opacity: $hotspot-debug-opacity;
+    background-color: $hotspot-debug-color;
+  }
+  .hint & {
+    opacity: $hotspot-hint-opacity;
+    background-color: $hotspot-hint-color;
   }
 }
 .screen-preload {

@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('prototype', ['ui.router', 'ct.ui.router.extras.future']);
+  angular.module('prototype', ['ui.router', 'ct.ui.router.extras.future', 'ngTouch']);
 
 })();
 
@@ -67,7 +67,7 @@
     .directive('prototype', prototype);
 
   /** @ngInject */
-  function prototype($state, $stateParams, breakpointService, $prototype) {
+  function prototype($state, $stateParams, breakpointService, $prototype, $timeout) {
     return {
       restrict: 'E',
       scope: {},
@@ -100,8 +100,16 @@
           return $prototype.screenUrl + $state.href(state).replace('#', '') + '/' + fileName;
         }
 
+        function showHint() {
+          element.addClass('hint');
+          $timeout(function() {
+            element.removeClass('hint');
+          }, 700);
+        }
+
         scope.debug = !!$stateParams.debug;
         scope.preload = [];
+        scope.showHint = showHint;
 
         scope.$watch(function() {
           return breakpointService.getBreakpoint();
@@ -115,7 +123,7 @@
     };
 
   }
-  prototype.$inject = ["$state", "$stateParams", "breakpointService", "$prototype"];
+  prototype.$inject = ["$state", "$stateParams", "breakpointService", "$prototype", "$timeout"];
 
 })();
 
@@ -175,4 +183,4 @@
     prototypeProvider.$inject = ["$stateProvider", "$futureStateProvider"];
 })();
 
-angular.module("prototype").run(["$templateCache", function($templateCache) {$templateCache.put("prototype/prototype.html","<div class=\"prototype-wrapper\"><div class=\"prototype-container\" ng-class=\"{debug: debug}\"><img ng-attr-width=\"{{breakpoint.resolution}}\" data-screen=\"\" ng-src=\"{{screenUrl}}\"> <a ui-sref=\"{{hotspot.state}}({debug: debug || null})\" ng-repeat=\"hotspot in options.hotspots\" class=\"hotspot\" style=\"left: {{hotspot.x * ratio}}px; top: {{hotspot.y * ratio}}px; width: {{hotspot.width * ratio}}px; height: {{hotspot.height * ratio}}px\"></a></div><img class=\"screen-preload\" ng-src=\"{{pre}}\" ng-repeat=\"pre in preload\"></div>");}]);
+angular.module("prototype").run(["$templateCache", function($templateCache) {$templateCache.put("prototype/prototype.html","<div class=\"prototype-wrapper\" ng-click=\"showHint()\"><div class=\"prototype-container\" ng-class=\"{debug: debug}\"><img ng-attr-width=\"{{breakpoint.resolution}}\" data-screen=\"\" ng-src=\"{{screenUrl}}\"> <a ui-sref=\"{{hotspot.state}}({debug: debug || null})\" ng-click=\"$event.stopPropagation()\" ng-repeat=\"hotspot in options.hotspots\" class=\"hotspot\" style=\"left: {{hotspot.x * ratio}}px; top: {{hotspot.y * ratio}}px; width: {{hotspot.width * ratio}}px; height: {{hotspot.height * ratio}}px\"></a></div><img class=\"screen-preload\" ng-src=\"{{pre}}\" ng-repeat=\"pre in preload\"></div>");}]);
