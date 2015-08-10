@@ -5,7 +5,7 @@
     .directive('prototype', prototype);
 
   /** @ngInject */
-  function prototype($state, $stateParams, breakpointService, $prototype) {
+  function prototype($state, $stateParams, breakpointService, $prototype, $timeout) {
     return {
       restrict: 'E',
       scope: {},
@@ -38,8 +38,16 @@
           return $prototype.screenUrl + $state.href(state).replace('#', '') + '/' + fileName;
         }
 
+        function showHint() {
+          element.addClass('hint');
+          $timeout(function() {
+            element.removeClass('hint');
+          }, 700);
+        }
+
         scope.debug = !!$stateParams.debug;
         scope.preload = [];
+        scope.showHint = showHint;
 
         scope.$watch(function() {
           return breakpointService.getBreakpoint();

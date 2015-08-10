@@ -1,6 +1,6 @@
 {
   "name": "angular-prototype",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "authors": [
     "Lawrence Hunt <lawrence.hunt@gmail.com>"
   ],
@@ -32,7 +32,8 @@
   "dependencies": {
     "ui-router-extras": "~0.0.14",
     "lodash": "~3.10.0",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "angular-touch": "~1.4.3"
   },
   "overrides": {
     "ui-router-extras": {
