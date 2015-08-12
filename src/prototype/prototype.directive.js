@@ -28,9 +28,10 @@ let PrototypeDirective = function($state, $stateParams, BreakpointService, $prot
       }
 
       function getFilePath(state) {
-        let fileName = state.name + '_' + scope.breakpoint.name + $prototype.screenFileFormat;
+        let url = $prototype.screenUrl + $state.href(state).replace('#', '');
+        let fileName = `${state.name}_${scope.breakpoint.name}${$prototype.screenFileFormat}`;
 
-        return $prototype.screenUrl + $state.href(state).replace('#', '') + '/' + fileName;
+        return `${url}/${fileName}`;
       }
 
       function showHint() {

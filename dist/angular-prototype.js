@@ -100,7 +100,7 @@
 	    value: function getCurrentBreakpoint() {
 	      var _this2 = this;
 
-	      var currentBreakpoint;
+	      var currentBreakpoint = undefined;
 
 	      angular.forEach(this.$prototype.breakpoints, function (breakpoint) {
 	        if (!breakpoint.resolution || _this2.$window.innerWidth <= breakpoint.resolution) {
@@ -187,9 +187,7 @@
 	      var _this = this;
 
 	      return $http.get(this.options.screenConfigFile).then(function (response) {
-	        angular.forEach(response.data, function (stateConfig) {
-	          _this.createState(stateConfig);
-	        });
+	        angular.forEach(response.data, _this.createState, _this);
 	      });
 	    }]
 	  }, {
@@ -263,9 +261,10 @@
 	      }
 
 	      function getFilePath(state) {
+	        var url = $prototype.screenUrl + $state.href(state).replace('#', '');
 	        var fileName = state.name + '_' + scope.breakpoint.name + $prototype.screenFileFormat;
 
-	        return $prototype.screenUrl + $state.href(state).replace('#', '') + '/' + fileName;
+	        return url + '/' + fileName;
 	      }
 
 	      function showHint() {

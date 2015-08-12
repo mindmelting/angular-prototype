@@ -1,4 +1,4 @@
-let OPTIONS = {
+const OPTIONS = {
   screenConfigFile: '/app/config/screens.json',
   breakpoints: [{
     name: 'desktop',
@@ -27,16 +27,14 @@ class PrototypeProvider {
     'ngInject';
 
     return $http.get(this.options.screenConfigFile).then((response) => {
-      angular.forEach(response.data, (stateConfig) => {
-        this.createState(stateConfig);
-      });
+      angular.forEach(response.data, this.createState, this);
     });
   }
 
   createState(stateConfig) {
     this.$stateProvider
       .state(stateConfig.state, {
-        url: stateConfig.url + '?debug',
+        url: `${stateConfig.url}?debug`,
         breakpoints: stateConfig.breakpoints,
         template: '<prototype></prototype>'
       });
