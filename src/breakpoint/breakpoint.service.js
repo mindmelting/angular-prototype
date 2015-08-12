@@ -1,53 +1,46 @@
-(function() {
-  'use strict';
+class BreakpointService {
+  constructor($rootScope, $prototype, $window) {
+    'ngInject';
 
-  angular.module('prototype')
-    .factory('breakpointService', breakpointService);
+    this.$rootScope = $rootScope;
+    this.$prototype = $prototype;
+    this.$window = $window;
+    this.currentBreakpoint = this.getCurrentBreakpoint();
 
-  /** @ngInject */
-  function breakpointService($rootScope, $prototype, $window) {
-    var currentBreakpoint = getCurrentBreakpoint();
+    angular.element($window).bind('resize', $window._.throttle(() => {
+      this.onResize();
+    }, 500));
+  }
 
-    function getBreakpoint() {
-      return currentBreakpoint;
-    }
+  getCurrentBreakpoint() {
+    let currentBreakpoint;
 
-    function getCurrentBreakpoint() {
-      var currentBreakpoint;
-
-      angular.forEach($prototype.breakpoints, function(breakpoint) {
-        if (!breakpoint.resolution || $window.innerWidth <= breakpoint.resolution) {
-          currentBreakpoint = breakpoint;
-        }
-      });
-
-      return currentBreakpoint || $prototype.breakpoints[0];
-    }
-
-    function isBreakPointUpdated() {
-      var breakpoint = getCurrentBreakpoint();
-
-      if (currentBreakpoint !== breakpoint) {
+    angular.forEach(this.$prototype.breakpoints, (breakpoint) => {
+      if (!breakpoint.resolution || this.$window.innerWidth <= breakpoint.resolution) {
         currentBreakpoint = breakpoint;
-        return true;
       }
+    });
 
-      return false;
+    return currentBreakpoint || this.$prototype.breakpoints[0];
+  }
 
+   isBreakPointUpdated() {
+    let breakpoint = this.getCurrentBreakpoint();
+
+    if (this.currentBreakpoint !== breakpoint) {
+      this.currentBreakpoint = breakpoint;
+      return true;
     }
 
-    function onResize() {
-      if (isBreakPointUpdated()) {
-        $rootScope.$apply();
-      }
-    }
-
-    angular.element($window).bind('resize', $window._.throttle(onResize, 500));
-
-    return {
-      getBreakpoint: getBreakpoint
-    };
+    return false;
 
   }
 
-})();
+  onResize() {
+    if (this.isBreakPointUpdated()) {
+      this.$rootScope.$apply();
+    }
+  }
+}
+
+export default BreakpointService;

@@ -35,7 +35,7 @@ describe('Prototype Directive: ', function() {
     },
     $scope,
     $state,
-    breakpointService,
+    BreakpointService,
     $element;
 
   beforeEach(module('prototype'));
@@ -59,7 +59,7 @@ describe('Prototype Directive: ', function() {
         };
       };
     });
-    $provide.factory('breakpointService', function() {
+    $provide.factory('BreakpointService', function() {
       return {
         getBreakpoint: jasmine.createSpy('getBreakpoint')
       };
@@ -67,8 +67,8 @@ describe('Prototype Directive: ', function() {
   }));
 
 
-  beforeEach(inject(function($rootScope, $compile, _$state_, _breakpointService_) {
-    breakpointService = _breakpointService_;
+  beforeEach(inject(function($rootScope, $compile, _$state_, _BreakpointService_) {
+    BreakpointService = _BreakpointService_;
     $state = _$state_;
     $state.href.and.returnValue('#/home');
 
@@ -85,13 +85,9 @@ describe('Prototype Directive: ', function() {
       isolateScope;
 
     beforeEach(function() {
-      breakpointService.getBreakpoint.and.returnValue(breakpoint);
+      BreakpointService.currentBreakpoint = breakpoint;
       $scope.$digest();
       isolateScope = $element.isolateScope();
-    });
-
-    it('Should fetch the breakpoint', function() {
-      expect(breakpointService.getBreakpoint).toHaveBeenCalled();
     });
 
     it('Should set breakpoint options', function() {
@@ -143,7 +139,7 @@ describe('Prototype Directive: ', function() {
       };
 
       beforeEach(function() {
-        breakpointService.getBreakpoint.and.returnValue(newBreakpoint);
+        BreakpointService.currentBreakpoint = newBreakpoint;
         isolateScope.$apply();
       });
 
