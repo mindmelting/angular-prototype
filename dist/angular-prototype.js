@@ -1,186 +1,298 @@
-(function() {
-  'use strict';
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
 
-  angular.module('prototype', ['ui.router', 'ct.ui.router.extras.future', 'ngTouch']);
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
 
-})();
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
 
-(function() {
-  'use strict';
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
 
-  angular.module('prototype')
-    .factory('breakpointService', breakpointService);
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 
-  /** @ngInject */
-  function breakpointService($rootScope, $prototype, $window) {
-    var currentBreakpoint = getCurrentBreakpoint();
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
 
-    function getBreakpoint() {
-      return currentBreakpoint;
-    }
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
 
-    function getCurrentBreakpoint() {
-      var currentBreakpoint;
 
-      angular.forEach($prototype.breakpoints, function(breakpoint) {
-        if (!breakpoint.resolution || $window.innerWidth <= breakpoint.resolution) {
-          currentBreakpoint = breakpoint;
-        }
-      });
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
 
-      return currentBreakpoint || $prototype.breakpoints[0];
-    }
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
 
-    function isBreakPointUpdated() {
-      var breakpoint = getCurrentBreakpoint();
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
 
-      if (currentBreakpoint !== breakpoint) {
-        currentBreakpoint = breakpoint;
-        return true;
-      }
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
 
-      return false;
+	'use strict';
 
-    }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-    function onResize() {
-      if (isBreakPointUpdated()) {
-        $rootScope.$apply();
-      }
-    }
+	var _breakpointBreakpointServiceJs = __webpack_require__(1);
 
-    angular.element($window).bind('resize', $window._.throttle(onResize, 500));
+	var _breakpointBreakpointServiceJs2 = _interopRequireDefault(_breakpointBreakpointServiceJs);
 
-    return {
-      getBreakpoint: getBreakpoint
-    };
+	var _prototypePrototypeServiceJs = __webpack_require__(2);
 
-  }
-  breakpointService.$inject = ["$rootScope", "$prototype", "$window"];
+	var _prototypePrototypeServiceJs2 = _interopRequireDefault(_prototypePrototypeServiceJs);
 
-})();
+	var _prototypePrototypeDirectiveJs = __webpack_require__(3);
 
-(function() {
-  'use strict';
+	var _prototypePrototypeDirectiveJs2 = _interopRequireDefault(_prototypePrototypeDirectiveJs);
 
-  angular.module('prototype')
-    .directive('prototype', prototype);
+	angular.module('prototype', ['ui.router', 'ct.ui.router.extras.future', 'ngTouch']).service('BreakpointService', _breakpointBreakpointServiceJs2['default']).provider('$prototype', _prototypePrototypeServiceJs2['default']).directive('prototype', _prototypePrototypeDirectiveJs2['default']);
 
-  /** @ngInject */
-  function prototype($state, $stateParams, breakpointService, $prototype, $timeout) {
-    return {
-      restrict: 'E',
-      scope: {},
-      templateUrl: 'prototype/prototype.html',
-      link: function(scope, element) {
+/***/ },
+/* 1 */
+/***/ function(module, exports) {
 
-        function setScreenState(currentBreakpoint) {
-          scope.options = $state.current.breakpoints[currentBreakpoint.name];
-          scope.breakpoint = currentBreakpoint;
-          scope.ratio = currentBreakpoint.resolution / scope.options.imageWidth;
-          scope.screenUrl = getFilePath($state.current);
-        }
+	'use strict';
 
-        function onImageLoaded() {
-          scope.preload.length = 0;
-          angular.forEach(scope.options.hotspots, preloadHotspotImage);
-        }
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
 
-        function preloadHotspotImage(hotspot) {
-          var state = $state.get(hotspot.state);
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-          if (state) {
-            scope.preload.push(getFilePath(state));
-          }
-        }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-        function getFilePath(state) {
-          var fileName = state.name + '_' + scope.breakpoint.name + $prototype.screenFileFormat;
+	var BreakpointService = (function () {
+	  function BreakpointService($rootScope, $prototype, $window) {
+	    'ngInject';
 
-          return $prototype.screenUrl + $state.href(state).replace('#', '') + '/' + fileName;
-        }
+	    var _this = this;
 
-        function showHint() {
-          element.addClass('hint');
-          $timeout(function() {
-            element.removeClass('hint');
-          }, 700);
-        }
+	    _classCallCheck(this, BreakpointService);
 
-        scope.debug = !!$stateParams.debug;
-        scope.preload = [];
-        scope.showHint = showHint;
+	    this.$rootScope = $rootScope;
+	    this.$prototype = $prototype;
+	    this.$window = $window;
+	    this.currentBreakpoint = this.getCurrentBreakpoint();
 
-        scope.$watch(function() {
-          return breakpointService.getBreakpoint();
-        }, setScreenState);
+	    angular.element($window).bind('resize', $window._.throttle(function () {
+	      _this.onResize();
+	    }, 500));
+	  }
+	  BreakpointService.$inject = ["$rootScope", "$prototype", "$window"];
 
-        element.find('[data-screen]').on('load', function() {
-          scope.$apply(onImageLoaded);
-        });
+	  _createClass(BreakpointService, [{
+	    key: 'getCurrentBreakpoint',
+	    value: function getCurrentBreakpoint() {
+	      var _this2 = this;
 
-      }
-    };
+	      var currentBreakpoint = undefined;
 
-  }
-  prototype.$inject = ["$state", "$stateParams", "breakpointService", "$prototype", "$timeout"];
+	      angular.forEach(this.$prototype.breakpoints, function (breakpoint) {
+	        if (!breakpoint.resolution || _this2.$window.innerWidth <= breakpoint.resolution) {
+	          currentBreakpoint = breakpoint;
+	        }
+	      });
 
-})();
+	      return currentBreakpoint || this.$prototype.breakpoints[0];
+	    }
+	  }, {
+	    key: 'isBreakPointUpdated',
+	    value: function isBreakPointUpdated() {
+	      var breakpoint = this.getCurrentBreakpoint();
 
-(function() {
-  'use strict';
+	      if (this.currentBreakpoint !== breakpoint) {
+	        this.currentBreakpoint = breakpoint;
+	        return true;
+	      }
 
-  angular.module('prototype')
-    .provider('$prototype', prototypeProvider);
+	      return false;
+	    }
+	  }, {
+	    key: 'onResize',
+	    value: function onResize() {
+	      if (this.isBreakPointUpdated()) {
+	        this.$rootScope.$apply();
+	      }
+	    }
+	  }]);
 
-    /** @ngInject */
-    function prototypeProvider($stateProvider, $futureStateProvider) {
+	  return BreakpointService;
+	})();
 
-      var options = {
-        screenConfigFile: '/app/config/screens.json',
-        breakpoints: [{
-          name: 'desktop',
-          resolution: 1280
-        }, {
-          name: 'tablet',
-          resolution: 960
-        }, {
-          name: 'mobile',
-          resolution: 540
-        }],
-        screenUrl: 'assets/screens',
-        screenFileFormat: '.png'
-      };
+	exports['default'] = BreakpointService;
+	module.exports = exports['default'];
 
-      /** @ngInject */
-      function futureStateResolve($http) {
-        return $http.get(options.screenConfigFile).then(function(response) {
-          angular.forEach(response.data, createState);
-        });
-      }
-      futureStateResolve.$inject = ["$http"];
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
 
-      function createState(stateConfig) {
-        $stateProvider
-          .state(stateConfig.state, {
-            url: stateConfig.url + '?debug',
-            breakpoints: stateConfig.breakpoints,
-            template: '<prototype></prototype>'
-          });
-      }
+	'use strict';
 
-      function init(configOptions) {
-        _.assign(options, configOptions);
-        $futureStateProvider.addResolve(futureStateResolve);
-      }
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
 
-      this.$get = function() {
-        return options;
-      };
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-      this.init = init;
-    }
-    prototypeProvider.$inject = ["$stateProvider", "$futureStateProvider"];
-})();
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
+	var OPTIONS = {
+	  screenConfigFile: '/app/config/screens.json',
+	  breakpoints: [{
+	    name: 'desktop',
+	    resolution: 1280
+	  }, {
+	    name: 'tablet',
+	    resolution: 960
+	  }, {
+	    name: 'mobile',
+	    resolution: 540
+	  }],
+	  screenUrl: 'assets/screens',
+	  screenFileFormat: '.png'
+	};
+
+	var PrototypeProvider = (function () {
+	  function PrototypeProvider($stateProvider, $futureStateProvider) {
+	    'ngInject';
+
+	    _classCallCheck(this, PrototypeProvider);
+
+	    this.options = _.cloneDeep(OPTIONS);
+	    this.$stateProvider = $stateProvider;
+	    this.$futureStateProvider = $futureStateProvider;
+	  }
+	  PrototypeProvider.$inject = ["$stateProvider", "$futureStateProvider"];
+
+	  _createClass(PrototypeProvider, [{
+	    key: 'futureStateResolve',
+	    value: ["$http", function futureStateResolve($http) {
+	      'ngInject';
+
+	      var _this = this;
+
+	      return $http.get(this.options.screenConfigFile).then(function (response) {
+	        angular.forEach(response.data, _this.createState, _this);
+	      });
+	    }]
+	  }, {
+	    key: 'createState',
+	    value: function createState(stateConfig) {
+	      this.$stateProvider.state(stateConfig.state, {
+	        url: stateConfig.url + '?debug',
+	        breakpoints: stateConfig.breakpoints,
+	        template: '<prototype></prototype>'
+	      });
+	    }
+	  }, {
+	    key: '$get',
+	    value: function $get() {
+	      return this.options;
+	    }
+	  }, {
+	    key: 'init',
+	    value: function init(configOptions) {
+	      var _this2 = this;
+
+	      _.assign(this.options, configOptions);
+	      this.$futureStateProvider.addResolve(function () {
+	        return angular.injector(['ng']).invoke(_this2.futureStateResolve, _this2);
+	      });
+	    }
+	  }]);
+
+	  return PrototypeProvider;
+	})();
+
+	exports['default'] = PrototypeProvider;
+	module.exports = exports['default'];
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	var PrototypeDirective = function PrototypeDirective($state, $stateParams, BreakpointService, $prototype, $timeout) {
+	  'ngInject';
+
+	  return {
+	    restrict: 'E',
+	    scope: {},
+	    templateUrl: 'prototype/prototype.html',
+	    link: function link(scope, element) {
+
+	      function setScreenState(currentBreakpoint) {
+	        scope.options = $state.current.breakpoints[currentBreakpoint.name];
+	        scope.breakpoint = currentBreakpoint;
+	        scope.ratio = currentBreakpoint.resolution / scope.options.imageWidth;
+	        scope.screenUrl = getFilePath($state.current);
+	      }
+
+	      function onImageLoaded() {
+	        scope.preload.length = 0;
+	        angular.forEach(scope.options.hotspots, preloadHotspotImage);
+	      }
+
+	      function preloadHotspotImage(hotspot) {
+	        var state = $state.get(hotspot.state);
+
+	        if (state) {
+	          scope.preload.push(getFilePath(state));
+	        }
+	      }
+
+	      function getFilePath(state) {
+	        var url = $prototype.screenUrl + $state.href(state).replace('#', '');
+	        var fileName = state.name + '_' + scope.breakpoint.name + $prototype.screenFileFormat;
+
+	        return url + '/' + fileName;
+	      }
+
+	      function showHint() {
+	        element.addClass('hint');
+	        $timeout(function () {
+	          element.removeClass('hint');
+	        }, 700);
+	      }
+
+	      scope.debug = !!$stateParams.debug;
+	      scope.preload = [];
+	      scope.showHint = showHint;
+
+	      scope.$watch(function () {
+	        return BreakpointService.currentBreakpoint;
+	      }, setScreenState);
+
+	      element.find('[data-screen]').on('load', function () {
+	        scope.$apply(onImageLoaded);
+	      });
+	    }
+	  };
+	};
+	PrototypeDirective.$inject = ["$state", "$stateParams", "BreakpointService", "$prototype", "$timeout"];
+
+	exports['default'] = PrototypeDirective;
+	module.exports = exports['default'];
+
+/***/ }
+/******/ ]);
 angular.module("prototype").run(["$templateCache", function($templateCache) {$templateCache.put("prototype/prototype.html","<div class=\"prototype-wrapper\" ng-click=\"showHint()\"><div class=\"prototype-container\" ng-class=\"{debug: debug}\"><img ng-attr-width=\"{{breakpoint.resolution}}\" data-screen=\"\" ng-src=\"{{screenUrl}}\"> <a ui-sref=\"{{hotspot.state}}({debug: debug || null})\" ng-click=\"$event.stopPropagation()\" ng-repeat=\"hotspot in options.hotspots\" class=\"hotspot\" style=\"left: {{hotspot.x * ratio}}px; top: {{hotspot.y * ratio}}px; width: {{hotspot.width * ratio}}px; height: {{hotspot.height * ratio}}px\"></a></div><img class=\"screen-preload\" ng-src=\"{{pre}}\" ng-repeat=\"pre in preload\"></div>");}]);

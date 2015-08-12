@@ -36,7 +36,7 @@ module.exports = function (config) {
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/ui-router-extras/release/ct-ui-router-extras.js',
       'bower_components/lodash/lodash.js',
-      'src/**/*.js',
+      '.tmp/angular-prototype.js',
       'test/unit/**/*.spec.js',
       'src/**/*.html'
     ],

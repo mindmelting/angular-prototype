@@ -9,6 +9,7 @@
   "unused": true,
   "validthis": true,
   "jasmine": true,
+  "esnext": true,
   "globals": {
     "angular": false,
     "inject": false,

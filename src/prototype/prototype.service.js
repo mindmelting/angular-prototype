@@ -1,53 +1,56 @@
-(function() {
-  'use strict';
+const OPTIONS = {
+  screenConfigFile: '/app/config/screens.json',
+  breakpoints: [{
+    name: 'desktop',
+    resolution: 1280
+  }, {
+    name: 'tablet',
+    resolution: 960
+  }, {
+    name: 'mobile',
+    resolution: 540
+  }],
+  screenUrl: 'assets/screens',
+  screenFileFormat: '.png'
+};
 
-  angular.module('prototype')
-    .provider('$prototype', prototypeProvider);
+class PrototypeProvider {
+  constructor($stateProvider, $futureStateProvider) {
+    'ngInject';
 
-    /** @ngInject */
-    function prototypeProvider($stateProvider, $futureStateProvider) {
+    this.options = _.cloneDeep(OPTIONS);
+    this.$stateProvider = $stateProvider;
+    this.$futureStateProvider = $futureStateProvider;
+  }
 
-      var options = {
-        screenConfigFile: '/app/config/screens.json',
-        breakpoints: [{
-          name: 'desktop',
-          resolution: 1280
-        }, {
-          name: 'tablet',
-          resolution: 960
-        }, {
-          name: 'mobile',
-          resolution: 540
-        }],
-        screenUrl: 'assets/screens',
-        screenFileFormat: '.png'
-      };
+  futureStateResolve($http) {
+    'ngInject';
 
-      /** @ngInject */
-      function futureStateResolve($http) {
-        return $http.get(options.screenConfigFile).then(function(response) {
-          angular.forEach(response.data, createState);
-        });
-      }
+    return $http.get(this.options.screenConfigFile).then((response) => {
+      angular.forEach(response.data, this.createState, this);
+    });
+  }
 
-      function createState(stateConfig) {
-        $stateProvider
-          .state(stateConfig.state, {
-            url: stateConfig.url + '?debug',
-            breakpoints: stateConfig.breakpoints,
-            template: '<prototype></prototype>'
-          });
-      }
+  createState(stateConfig) {
+    this.$stateProvider
+      .state(stateConfig.state, {
+        url: `${stateConfig.url}?debug`,
+        breakpoints: stateConfig.breakpoints,
+        template: '<prototype></prototype>'
+      });
+  }
 
-      function init(configOptions) {
-        _.assign(options, configOptions);
-        $futureStateProvider.addResolve(futureStateResolve);
-      }
+  $get() {
+    return this.options;
+  }
 
-      this.$get = function() {
-        return options;
-      };
+  init(configOptions) {
+    _.assign(this.options, configOptions);
+    this.$futureStateProvider.addResolve(() => {
+      return angular.injector(['ng']).invoke(this.futureStateResolve, this);
+    });
+  }
 
-      this.init = init;
-    }
-})();
+}
+
+export default PrototypeProvider;

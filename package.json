@@ -1,6 +1,6 @@
 {
   "name": "angular-prototype",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "",
   "main": "Gruntfile.js",
   "scripts": {
@@ -14,6 +14,8 @@
   "author": "Lawrence Hunt",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^5.8.22",
+    "babel-loader": "^5.3.2",
     "gulp": "^3.9.0",
     "gulp-angular-templatecache": "^1.7.0",
     "gulp-concat": "^2.6.0",
@@ -23,6 +25,7 @@
     "gulp-ng-annotate": "^1.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.2.0",
+    "gulp-webpack": "^1.5.0",
     "jasmine-core": "^2.3.4",
     "karma": "^0.12.0",
     "karma-angular-filesort": "^0.1.0",
@@ -33,6 +36,7 @@
     "karma-ng-html2js-preprocessor": "^0.1.2",
     "karma-phantomjs-launcher": "^0.2.0",
     "path": "^0.11.14",
-    "phantomjs": "^1.9.17"
+    "phantomjs": "^1.9.17",
+    "webpack": "^1.11.0"
   }
 }

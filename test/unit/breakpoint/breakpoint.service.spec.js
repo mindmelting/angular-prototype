@@ -11,7 +11,7 @@ describe('Breakpoint service: ', function() {
       name: 'mobile',
       resolution: 320
     }],
-    breakpointService,
+    BreakpointService,
     initWindowSize,
     $window;
 
@@ -27,8 +27,8 @@ describe('Breakpoint service: ', function() {
     });
   }));
 
-  beforeEach(inject(function(_breakpointService_, _$window_) {
-    breakpointService = _breakpointService_;
+  beforeEach(inject(function(_BreakpointService_, _$window_) {
+    BreakpointService = _BreakpointService_;
     $window = _$window_;
     initWindowSize = $window.innerWidth;
   }));
@@ -38,19 +38,19 @@ describe('Breakpoint service: ', function() {
   });
 
   it('It should set the initial breakpoint to tablet', function() {
-    expect(breakpointService.getBreakpoint()).toBe(BREAKPOINTS[1]);
+    expect(BreakpointService.currentBreakpoint).toBe(BREAKPOINTS[1]);
   });
 
   it('It should set the breakpoint to desktop when resizing', function() {
     $window.innerWidth = 1000;
     angular.element($window).trigger('resize');
-    expect(breakpointService.getBreakpoint()).toBe(BREAKPOINTS[0]);
+    expect(BreakpointService.currentBreakpoint).toBe(BREAKPOINTS[0]);
   });
 
   it('It should set the breakpoint to mobile when resizing', function() {
     $window.innerWidth = 200;
     angular.element($window).trigger('resize');
-    expect(breakpointService.getBreakpoint()).toBe(BREAKPOINTS[2]);
+    expect(BreakpointService.currentBreakpoint).toBe(BREAKPOINTS[2]);
   });
 
   
