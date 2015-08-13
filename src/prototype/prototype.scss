@@ -19,7 +19,8 @@ $hotspot-hint-opacity: 0.8 !default;
   position: relative;
   display: inline-block;
   img {
-    max-width: none;
+    max-width: 100%;
+    vertical-align: top;
   }
 }
 .hotspot {

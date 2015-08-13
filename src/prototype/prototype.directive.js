@@ -55,6 +55,6 @@ let PrototypeDirective = function($state, $stateParams, BreakpointService, $prot
 
     }
   };
-}
+};
 
 export default PrototypeDirective;
