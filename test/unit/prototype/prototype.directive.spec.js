@@ -99,7 +99,7 @@ describe('Prototype Directive: ', function() {
     });
 
     it('Should set current screen url', function() {
-      expect(isolateScope.screenUrl).toBe('/assets/home/home_desktop.png');
+      expect(isolateScope.screenUrl).toBe('/assets/desktop/home.png');
     });
 
     describe('Image preloading: ', function() {
@@ -125,7 +125,7 @@ describe('Prototype Directive: ', function() {
 
         it('Should populate preload image url on to the scope', function() {
           expect(isolateScope.preload.length).toBe(1);
-          expect(isolateScope.preload[0]).toBe('/assets/products/products_desktop.png');
+          expect(isolateScope.preload[0]).toBe('/assets/desktop/products.png');
         });
 
       });
@@ -152,7 +152,7 @@ describe('Prototype Directive: ', function() {
       });
 
       it('Should update current screen url', function() {
-        expect(isolateScope.screenUrl).toBe('/assets/home/home_mobile.png');
+        expect(isolateScope.screenUrl).toBe('/assets/mobile/home.png');
       });
 
     });
