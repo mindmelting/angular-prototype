@@ -261,10 +261,9 @@
 	      }
 
 	      function getFilePath(state) {
-	        var url = $prototype.screenUrl + $state.href(state).replace('#', '');
-	        var fileName = state.name + '_' + scope.breakpoint.name + $prototype.screenFileFormat;
+	        var url = $state.href(state).replace('#', '');
 
-	        return url + '/' + fileName;
+	        return $prototype.screenUrl + '/' + scope.breakpoint.name + url + $prototype.screenFileFormat;
 	      }
 
 	      function showHint() {
