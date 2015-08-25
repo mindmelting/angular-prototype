@@ -255,7 +255,7 @@
 	      function preloadHotspotImage(hotspot) {
 	        var state = $state.get(hotspot.state);
 
-	        if (state) {
+	        if (state && state.breakpoints) {
 	          scope.preload.push(getFilePath(state));
 	        }
 	      }

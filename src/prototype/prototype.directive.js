@@ -22,7 +22,7 @@ let PrototypeDirective = function($state, $stateParams, BreakpointService, $prot
       function preloadHotspotImage(hotspot) {
         let state = $state.get(hotspot.state);
 
-        if (state) {
+        if (state && state.breakpoints) {
           scope.preload.push(getFilePath(state));
         }
       }
