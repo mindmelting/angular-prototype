@@ -112,7 +112,8 @@ describe('Prototype Directive: ', function() {
         beforeEach(function() {
           $state.get.and.returnValue({
             name: 'products',
-            url: '/products'
+            url: '/products',
+            breakpoints: []
           });
           $state.href.and.returnValue('#/products');
           $element.find('[data-screen]').trigger('load');
@@ -159,5 +160,5 @@ describe('Prototype Directive: ', function() {
 
   });
 
-  
+
 });
