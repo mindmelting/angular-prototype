@@ -4,7 +4,7 @@ Angular service to generate a set of prototype hotspot enabled screens derived f
 
 Screens are lazyloaded based on the hotspot links on the current page.
 
-Configuration can be automatically generated from PSD files using [prototype-psd-parser](https://github.com/mindmelting/prototype-psd-parser)
+Configuration can be automatically generated from PSD files using [prototype-psd-parser](https://github.com/MDL/prototype-psd-parser)
 
 ## Installation
 
