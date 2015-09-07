@@ -1,6 +1,6 @@
 # angular-prototype
 
-![CircleCI Build](https://circleci.com/gh/MDL/prototype-psd-parser.svg?style=shield&circle-token=0639224a477566515545eec097477326b9b2bf53)
+![CircleCI Build](https://circleci.com/gh/MDL/angular-prototype.svg?style=shield&circle-token=0639224a477566515545eec097477326b9b2bf53)
 
 Angular service to generate a set of prototype hotspot enabled screens derived from configuration.
 
