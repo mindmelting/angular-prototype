@@ -273,7 +273,6 @@
 	        }, 700);
 	      }
 
-	      scope.debug = !!$stateParams.debug;
 	      scope.preload = [];
 	      scope.showHint = showHint;
 
@@ -294,4 +293,4 @@
 
 /***/ }
 /******/ ]);
-angular.module("prototype").run(["$templateCache", function($templateCache) {$templateCache.put("prototype/prototype.html","<div class=\"prototype-wrapper\" ng-click=\"showHint()\"><div class=\"prototype-container\" style=\"max-width: {{breakpoint.resolution}}px;\" ng-class=\"{debug: debug}\"><img data-screen=\"\" ng-src=\"{{screenUrl}}\"> <a ui-sref=\"{{hotspot.state}}({debug: debug || null})\" ng-click=\"$event.stopPropagation()\" ng-repeat=\"hotspot in options.hotspots\" class=\"hotspot\" style=\"left: {{hotspot.x * 100}}%; top: {{hotspot.y * 100}}%; width: {{hotspot.width * 100}}%; height: {{hotspot.height * 100}}%\"></a></div><img class=\"screen-preload\" ng-src=\"{{pre}}\" ng-repeat=\"pre in preload\"></div>");}]);
+angular.module("prototype").run(["$templateCache", function($templateCache) {$templateCache.put("prototype/prototype.html","<div class=\"prototype-wrapper\" ng-click=\"showHint()\"><div class=\"prototype-container\" style=\"max-width: {{breakpoint.resolution}}px;\" ng-class=\"{debug: debug}\"><img data-screen=\"\" ng-src=\"{{screenUrl}}\"> <a ui-sref=\"{{hotspot.state}}\" ng-click=\"$event.stopPropagation()\" ng-repeat=\"hotspot in options.hotspots\" class=\"hotspot\" style=\"left: {{hotspot.x * 100}}%; top: {{hotspot.y * 100}}%; width: {{hotspot.width * 100}}%; height: {{hotspot.height * 100}}%\"></a></div><img class=\"screen-preload\" ng-src=\"{{pre}}\" ng-repeat=\"pre in preload\"></div>");}]);

@@ -40,7 +40,6 @@ let PrototypeDirective = function($state, $stateParams, BreakpointService, $prot
         }, 700);
       }
 
-      scope.debug = !!$stateParams.debug;
       scope.preload = [];
       scope.showHint = showHint;
 
