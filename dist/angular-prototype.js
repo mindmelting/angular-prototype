@@ -152,7 +152,7 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var OPTIONS = {
-	  screenConfigFile: '/app/config/screens.json',
+	  screenConfigFile: 'app/config/screens.json',
 	  breakpoints: [{
 	    name: 'desktop',
 	    resolution: 1280
@@ -243,7 +243,6 @@
 	      function setScreenState(currentBreakpoint) {
 	        scope.options = $state.current.breakpoints[currentBreakpoint.name];
 	        scope.breakpoint = currentBreakpoint;
-	        scope.ratio = currentBreakpoint.resolution / scope.options.imageWidth;
 	        scope.screenUrl = getFilePath($state.current);
 	      }
 
