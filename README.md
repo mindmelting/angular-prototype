@@ -2,9 +2,16 @@
 
 ![CircleCI Build](https://circleci.com/gh/MDL/angular-prototype.svg?style=shield&circle-token=0639224a477566515545eec097477326b9b2bf53)
 
-Angular service to generate a set of prototype hotspot enabled screens derived from configuration.
+Angular service to generate a set of prototype hotspot enabled screens derived from configuration.  
 
-Screens are lazyloaded based on the hotspot links on the current page.
+Screens are lazyloaded based on the hotspot links on the current page.  
+
+## Dependencies
+angular-prototype has the following dependencies that need to be included in your application page:  
+
+[ui-router](https://github.com/angular-ui/ui-router)  
+[ui-router-extras](https://github.com/christopherthielen/ui-router-extras)  
+[ng-touch](https://docs.angularjs.org/api/ngTouch)  
 
 ## Installation
 
@@ -93,12 +100,12 @@ An array of state objects, containing configuration for the hotspots in each bre
 * `state` - The unique name used by ui-router to navigate. This can be used in combination with a nested abstract state (e.g. `section.home`) to place the prototype content underneat a consistent header.
 * `url` - The url which will trigger the given state
 * `breakpoints` - An object containing data for each of the breakpoints
-** `hotspots` - An array of hotspots for the specific breakpoint
-*** `x` - The x coordinate of the top left point of the hotspot (as a decimal percentage of the image)
-*** `y` - The y coordinate of the top left point of the hotspot (as a decimal percentage of the image)
-*** `width` - The width of the hotspot (as a decimal percentage of the image)
-*** `height` - The height of the hotspot (as a decimal percentage of the image)
-*** `state` - The state name where the hotspot should navigate to when clicked/touched
+  * `hotspots` - An array of hotspots for the specific breakpoint
+    * `x` - The x coordinate of the top left point of the hotspot (as a decimal percentage of the image)
+    * `y` - The y coordinate of the top left point of the hotspot (as a decimal percentage of the image)
+    * `width` - The width of the hotspot (as a decimal percentage of the image)
+    * `height` - The height of the hotspot (as a decimal percentage of the image)
+    * `state` - The state name where the hotspot should navigate to when clicked/touched
 
 ## Image folder structure
 The directive will load an image related to the current state and breakpoint with the following structure:  
