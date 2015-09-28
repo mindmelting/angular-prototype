@@ -1,5 +1,5 @@
 const OPTIONS = {
-  screenConfigFile: '/app/config/screens.json',
+  screenConfigFile: 'app/config/screens.json',
   breakpoints: [{
     name: 'desktop',
     resolution: 1280

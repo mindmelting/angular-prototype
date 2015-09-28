@@ -1,6 +1,5 @@
 # angular-prototype
 
-[![Circle CI](https://circleci.com/gh/mindmelting/angular-prototype.svg?style=svg)](https://circleci.com/gh/mindmelting/angular-prototype)
 [![npm version](https://badge.fury.io/js/angular-prototype.svg)](http://badge.fury.io/js/angular-prototype)
 [![Bower version](https://badge.fury.io/bo/angular-prototype.svg)](http://badge.fury.io/bo/angular-prototype)
 [![Dependency Status](https://david-dm.org/mindmelting/angular-prototype.svg)](https://david-dm.org/mindmelting/angular-prototype)
@@ -39,7 +38,7 @@ angular
 ## Configuration
 
 * `screenConfigFile` - The location (local or remote) of the screen configuration file  
-    * Default `/app/config/screens.json`
+    * Default `app/config/screens.json`
 * `breakpoints` - An array of breakpoint objects defining at what width resolution the images should change. It will select the first item in the array if the screen is larger than all defined resolutions. The image widths will be set to this resolution too in order to support retina images.
     * Default
 ```javascript
