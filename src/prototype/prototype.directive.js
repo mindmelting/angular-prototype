@@ -10,7 +10,6 @@ let PrototypeDirective = function($state, $stateParams, BreakpointService, $prot
       function setScreenState(currentBreakpoint) {
         scope.options = $state.current.breakpoints[currentBreakpoint.name];
         scope.breakpoint = currentBreakpoint;
-        scope.ratio = currentBreakpoint.resolution / scope.options.imageWidth;
         scope.screenUrl = getFilePath($state.current);
       }
 
