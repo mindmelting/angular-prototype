@@ -1,8 +1,6 @@
 # angular-prototype
 
-[![npm version](https://badge.fury.io/js/angular-prototype.svg)](http://badge.fury.io/js/angular-prototype)
-[![Bower version](https://badge.fury.io/bo/angular-prototype.svg)](http://badge.fury.io/bo/angular-prototype)
-[![Dependency Status](https://david-dm.org/mindmelting/angular-prototype.svg)](https://david-dm.org/mindmelting/angular-prototype)
+![CircleCI Build](https://circleci.com/gh/MDL/angular-prototype.svg?style=shield&circle-token=0639224a477566515545eec097477326b9b2bf53)
 
 Angular service to generate a set of prototype hotspot enabled screens derived from configuration.
 
